@@ -91,36 +91,7 @@
             <div class="col-md-6 col-sm-6 col-xs-10 " style="padding:100px">
 
               <h1>Control Presupuestal<small></small></h1>
-              <h2>$  <?php 
-                include './conexion.php';
-                $consulta=$mysqli->query("select * from presupuestos
-                WHERE anio = '".date("Y")."' ")or die($mysqli->error);
-                       //Imprimir si es de este año
-                while ( $fila=mysqli_fetch_array($consulta)) {
-                 echo  number_format($fila['monto'],2);
-                 ?></h2>
-                 <br>
-                 <?php  
-                 // $monto=$mysqli->query("select SUM(monto) as total from presupuesto_depa")or die($mysqli->error);
-                 // $monto2=$monto->fetch_assoc();
-                 // $total=$monto2['total'];
-                $todo=$fila['monto'];
-                 
-
-                   $comprometido=$mysqli->query("select SUM(total_compromet) as comprom from orden")or die($mysqli->error);
-                   $comprom=$comprometido->fetch_assoc();
-                  $com=$comprom['comprom'];
-                   
-                  $res= $todo-$com;
-                
-                 ?>Presupuesto Usado: <?php echo "  $".number_format($com,2); ?>
-                 <?php
-                
-                  ?><br>
-                 Presupuesto Restante: <?php echo "  $".number_format($res,2);} ?>
-                 <br><hr>
-                 <h3><small>Presupuesto otorgado para el año <?php $fecha=date('Y');
-                 echo $fecha; ?></small> </h3>
+             
 
                </div>
     <!-- start of weather widgettttttttttttttttttttttttttttttttttttt -->
@@ -239,94 +210,12 @@
                 </ul>
 
               </div>
-              <?php 
-              
-              $consulta=$mysqli->query("select * from departamentos order by id_departamento ASC")or die($mysqli->error);
-              while ( $fila=mysqli_fetch_array($consulta)) {
-                     $presu=$mysqli->query("SELECT sum(total_compromet) as comprometido, 
-                              sum(ppto_dev) as devengado, 
-                              sum(ppto_pag) as pagado 
-                              FROM orden where id_departamento=".$fila['id_departamento'])or die($mysqli->error);
-                              $presur=$presu->fetch_assoc();
-
-                              $presupuesto=$fila['presupuesto'];
-                             $comprometido=$presur['comprometido'];
-                              $devengado=$presur['devengado'];
-                              $pagado=$presur['pagado'];
-                              $restante=$presupuesto - ($devengado + $pagado + $comprometido);
-                              $porcentajecomprometido =$comprometido * 100 / $presupuesto;
-                              $porcentajedevengado =$devengado * 100 / $presupuesto;
-                              $porcentajepagado =$pagado * 100 / $presupuesto;
-                              $porcentajerestante = $restante * 100 / $presupuesto;
-                              $arregloPorcentajes[]=array(
-                                  number_format($porcentajerestante,2),
-                                  number_format($porcentajepagado,2),
-                                  number_format($porcentajedevengado,2),
-                                  number_format($porcentajecomprometido,2),
-                                  
-                                  
-                              
-                              );
-
-
-
-               ?>
+           
 
                <!-- <div class="clearfix"></div>-->
                
                
 
-               <div class="col-md-4 col-sm-4 col-xs-12" >
-                <div class="x_panel tile fixed_height_320 overflow_hidden" class="graficas">
-                  <div class="x_title">
-                    <h2>  <a href="general_elements.php?id=<?php echo $fila['id_departamento'] ?>"><?php echo $fila['departamento'] ?><small> 
-                    $ <?php echo number_format($restante,2); ?></small></a></h2>
-                    
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-                    <table class="" style="width:100%">
-
-                      <tr>
-                        <td>
-                          <canvas class="canvasDoughnut" height="140" width="140" style="margin: 15px 10px 10px 0"></canvas>
-                        </td>
-                        <td>
-                          <table class="tile_info">
-                            <tr>
-                              <td>
-                                <p><i class="fa fa-square blue"></i>Comprometido </p>
-                              </td>
-                              <td><?php echo number_format($porcentajecomprometido,2); ?>%</td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <p><i class="fa fa-square green"></i>Devengado</p>
-                              </td>
-                              <td><?php echo number_format($porcentajedevengado,2); ?>%</td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <p><i class="fa fa-square purple"></i>Pagado </p>
-                              </td>
-                              <td><?php echo number_format($porcentajepagado,2); ?>%</td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <p><i class="fa fa-square aero"></i>Restante </p>
-                              </td>
-                              <td><?php echo number_format($porcentajerestante,2); ?>%</td>
-                            </tr>
-                            
-                          </table>
-                        </td>
-                      </tr>
-                    </table>
-                  </div>
-                </div>
-              </div>
-
-              <?php  } ?>
 <!--....................................................................................................-->
 
             </div>
@@ -336,14 +225,7 @@
             <div class="clearfix"></div>
 
             <div class="alert alert-success">
-              <ul class="margin-bottom-none padding-left-lg">
-                <i class="fa fa-info-circle fa-lg fa-li"></i>
-                <h2>Datos generales de las cuentas de cada departamento.</h2><small class="pull-right">Cuentas:<?php 
-                 $consulta3=$mysqli->query("select SUM(cantidad) as todo from cuentas ")or die($mysqli->error);
-                  $consul2=$consulta3->fetch_assoc();
-                  $con2=$consul2['todo'];
-                echo "$ "; echo number_format($con2,2); ?></small>
-              </ul>
+            
 
             </div>
             <div class="clearfix"></div>
@@ -351,7 +233,7 @@
             <div class="col-md-6 col-sm-6 col-xs-12   " style="width:100%;">
               <div class="x_panel">
                 <div class="x_title">
-                  <h2><i class="fa fa-align-left"></i> Cuentas / Departamentos <small></small></h2>
+                  <h2><i class="fa fa-align-left"></i> Dulce para pedir <small></small></h2>
                   
                   <div class="clearfix"></div>
                 </div>
@@ -359,104 +241,6 @@
 
                   <!-- start accordion -->
                   <div class="accordion" id="accordion1" role="tablist" aria-multiselectable="true">
-
-
-
-
-
-
-                   <?php 
-                   include './conexion.php';
-                   $consulta=$mysqli->query("select * from cuentas order by id_cuenta ASC")or die($mysqli->error);
-                   $cont=0;
-                   while ( $fila=mysqli_fetch_array($consulta)) {
-
-                    ++$cont;
-
-                    $res= $mysqli->query("SELECT SUM(monto) AS total FROM presupuesto_depa WHERE id_cuenta = ". $fila['id_cuenta'])or die($mysqli->error);
-                    $row=$res->fetch_assoc();
-                 //  = $fila['cantidad'] 
-
-                    ?>
-
-
-
-                    <div class="panel">
-
-                      <a class="panel-heading" role="tab" id="headingOne1" data-toggle="collapse"
-                      data-parent="#accordion " href="#collapseOne<?php echo $cont?>" aria-expanded="false" aria-controls="collapseOne<?php echo $cont?>">
-
-                      <h4 class="panel-title" style="padding-bottom:10px;height:25px;" >
-
-
-                      <div class="col-lg-6">
-                        <?php echo $fila['nombre']?> 
-                        <small style="margin-right: 30px;margin-left: 10px;">  
-                         <?php echo $fila['cuenta']?> 
-                      
-                      </small>
-                     </div>
-                     <div class="col-lg-6">
-                      <small>   Presupuesto Total:   $
-                       <?php echo   number_format($fila['cantidad']  ,2)?>
-                          Presupuesto usado:   $
-                      <?php echo number_format($row['total'] ,2);?></small>
-                       <?php $res=$fila['cantidad']-$row['total'];
-                       if ($res<=0) {
-                         $color="#FF0000";
-                       }else
-                       {$color="#7e8c9f";
-                       }
-                         ?>
-                       
-                       <small style="color:<?php echo $color; ?>;">Restante: $  <?php echo  number_format($res ,2) ?></small>
-                       </div>
-                      </h4>
-                    
-                   </a>
-                   <div id="collapseOne<?php echo $cont?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                    <div class="panel-body">
-                      <table class="table table-striped">
-                        <thead>
-                          <tr>
-                            <th>Id</th>
-                            <th>Departamento</th>
-                            <th>Presupuesto</th>
-
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <?php   $con=$mysqli->query("
-                           SELECT presupuesto_depa.*, departamentos.departamento
-                           FROM presupuesto_depa 
-
-                           INNER JOIN departamentos ON presupuesto_depa.id_departamento = departamentos.id_departamento
-
-
-                           where id_cuenta=". $fila['id_cuenta'].";"
-
-
-                           )or die($mysqli->error);
-                           while ( $fi=mysqli_fetch_array($con)) {?>
-                           <tr>
-                            <th scope="row">
-                              <?php echo $fi['id_departamento'] ?></th>
-                              <td><?php echo $fi['departamento'] ?></td>
-                              <td>$ <?php echo number_format($fi['monto']  ,2); ?></td>
-                              <?php $res=+ $fi['monto'];
-                              ?> 
-                            </tr>
-                            <?php } 
-
-                            ?>
-
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-
-                  <?php } ?>
                 </div>
                 <!-- end of accordion -->
 

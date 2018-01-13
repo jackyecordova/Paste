@@ -80,12 +80,12 @@ if (isset($_SESSION['miSesion'])){
      <div class="right_col" role="main">
       <div class="">
         <div class="page-title">
-
-         <div class="alert alert-success" style="    background-color: #00c0ef !important;">
+<br>
+         <div class="alert alert-success" style="margin-top:10px;background-color: #00c0ef !important;">
                 <ul class="margin-bottom-none padding-left-lg">
                   <i class="fa fa-info-circle fa-lg fa-li"></i>
                    <h4> Pastelería y Dulcería</h4>
-               Sandra <a class="pull-right" style="font-size:18px; text-decoration:none;"><?php 
+               Sandra <a class="pull-right" style="font-size:18px; text-decoration:none;color:white;"> <?php 
 //echo date("d-m-Y H:i:s");
                 
                 echo date('l, d M Y');
@@ -110,7 +110,7 @@ if (isset($_SESSION['miSesion'])){
               
                 <div class="row">
                   <div class="col-sm-12 box-body table-responsive no-padding">
-                    <table id="datatable" class="table table-striped  dataTable no-footer " role="grid" aria-describedby="datatable_info" >
+                    <table id="datatable" class="table table-hover" role="grid" aria-describedby="datatable_info" style="color:#333;">
                       <thead>
                                        <tr role="row">
                                         <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1" 
@@ -125,11 +125,11 @@ if (isset($_SESSION['miSesion'])){
                                     <th class="sorting" tabindex="0" 
                                     aria-controls="datatable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" 
                                     style="width:20%;">
-                                    Precio <spam class="pull-right">Cantidad </spam>
+                                    Precio 
                                   </th>
                                   <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
                                   colspan="1" aria-label="Age: activate to sort column ascending" style="width:10%;">
-                                  Total 
+                                  Cantidad 
                                 </th>
                                 <th class="sorting" tabindex="0" 
                                 aria-controls="datatable" rowspan="1" colspan="1"
@@ -305,6 +305,45 @@ if (isset($_SESSION['miSesion'])){
 </div>
 
 
+
+
+
+ <div class="col-md-12">
+          <!-- general form elements -->
+        
+
+              <div class="pad margin no-print">
+                    <div class="callout callout-success" style="margin-bottom: 0!important;">
+                      <label> </label>
+                     <p class="pull-right" style="font-size:18px;margin-right:3%;"> 
+                       <!-- /.Cancelar la venta completa y dejar vacia la lista............................. -->
+                              <button type="button" class="btn btn-success  btncancelar"
+                               style=" background: rgb(255, 255, 255);
+                                color: rgb(0, 166, 90);"
+                                     data-toggle="modal"
+                                       data-target="#cancelar"
+                                       data-idventacancelar="<?php echo $novent ?>">
+                               Cancelar</button>
+                                <!-- /.Pagar la lista agregada y agregarse a la tabla de venta................... -->
+                                   <button type="button" class="btn btn-success  btnpagar" 
+                                      style=" background: rgb(255, 255, 255);
+                                      color: rgb(0, 166, 90);margin-right:100px;
+                                      "
+                                       data-toggle="modal"
+                                       data-target="#eliminar"
+                                       data-codigopagar="<?php echo $fila['codigo'] ?>"
+                                       data-nombrepagar="<?php echo $fila['nombre'] ?>"
+                                        >Pagar</button>
+                                        Total: <?php      
+                                        echo "1234";
+                                      ?>
+                              </p>
+                              <br><p>.</p>
+                    </div>
+            </div>
+               
+
+        </div>
 
 
 

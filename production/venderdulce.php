@@ -201,7 +201,7 @@ if (isset($_SESSION['miSesion'])){
             <div id="agregar" class="modal fade" role="dialog">
           <div class="modal-dialog">
             <div class="modal-content">
-              <form class="form-horizontal" action="./codigos/ventadulce.php" method="post">
+            <!--  <form class="form-horizontal" action="./codigos/ventadulce.php" method="post">-->
                           <div class="modal-header">
 
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -231,15 +231,19 @@ if (isset($_SESSION['miSesion'])){
                                <td id="codigo" name="codigo"> <?php echo $fila['codigo'] ?></td>
                                 <td><?php echo $fila['nombre'] ?></td>
                                 <td>$ <?php echo $fila['precio'] ?>.00</td>
-                             
-                                <td><button type="submit" style="background-color: #00a65a !important" class="btn btn-success btn-xs pull-right btnagregar" style="margin-left:1%;margin-right:45%;"
-                                        data-codigoagregar="<?php echo $fila['codigo'] ?>"
-                                        data-nombreagregar="<?php echo $fila['nombre'] ?>"
-                                        data-precioagregar="<?php echo $fila['precio'] ?>"
-                                        data-idventaagregar="<?php echo $novent ?>"
-                                        >
+                             <!--type="submit" style="background-color: #00a65a !important" class="btn btn-success btn-xs pull-right btnagregar" style="margin-left:1%;margin-right:45%;"
+                                        -->
+                                <td>
+                                 <form class="form-horizontal" action="./codigos/ventadulce.php" method="post" accept-charset="utf-8">
+                                 <button>
+                                 <input type="hidden" name="codigoagregar" value="<?php echo $fila['codigo'] ?>">
+                                    <input type="hidden" name=" nombreagregar" value=" <?php echo $fila['nombre'] ?>">   
+                                    <input type="hidden" name="precioagregar" value="    <?php echo $fila['precio'] ?>">   
+                                     <input type="hidden" name="idventaagregar" value="  <?php echo $novent ?>">    
+                                        
                                         <a  style="text-decoration: none;color:white;"> <i class="fa fa-plus"></i></a>
-                                          </button></td>
+                                          </button>
+                                          </form></td>
 
                         </tr>
                         <?php } ?>
@@ -256,7 +260,7 @@ if (isset($_SESSION['miSesion'])){
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                                     <button type="submit" class="btn btn-success" data-toggle="modal" data-target="#eliminar">Agregar</button>
                             </div>
-                </form>
+              <!--  </form>-->
 
               </div>
             </div>
@@ -419,7 +423,7 @@ if (isset($_SESSION['miSesion'])){
          $("#codigo").val(codigo);
          $("#nombreagregar").val(nombreagregar) ;   
          $("#precioagregar").val(precioagregar) ;   
-       $("#prueba").val("asdf")
+      
 
  });
    $(".btneliminardulce").on('click',function(){

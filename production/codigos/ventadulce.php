@@ -1,4 +1,4 @@
-<?php  echo $_POST['codigo'];?>
+
 <?php
 	include '../conexion.php';
 		
@@ -25,7 +25,7 @@
 		$mysqli->query($consulta)or die($mysqli->error);
 
 		//echo "listo";
-		//header("Location: ../venderdulce.php");
+		header("Location: ../venderdulce.php");
 
 
   ?>

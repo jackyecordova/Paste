@@ -105,11 +105,16 @@ if (isset($_SESSION['miSesion'])){
               
               <div class="x_content">
                 <p class="text-muted font-13 m-b-30">
-
+ <a  class="btn btn-success  btnagregardulce pull-right" 
+                                       data-toggle="modal"
+                                       data-target="#agregar"
+                                      style="background-color: #00a65a !important">
+                                        Agregar Producto </a>
                 </p>
               
                 <div class="row">
                   <div class="col-sm-12 box-body table-responsive no-padding">
+
                     <table id="datatable" class="table table-hover" role="grid" aria-describedby="datatable_info" style="color:#333;">
                       <thead>
                                        <tr role="row">
@@ -156,7 +161,7 @@ if (isset($_SESSION['miSesion'])){
               <td class="sorting_1"> <?php echo $fila['codigo'] ?></td>
               <td><?php echo $fila['nombre'] ?></td>
               <td>$<?php echo number_format($fila['precio'] ,2) ?> </td>
-              <td><span class="label label-success "><?php echo $fila['precio'] ?></span>  
+              <td><span class="label label-success "><?php echo $fila['cantidad'] ?></span>  
               </td>
               <td>               
                <a href="#" class="btn btn-info btn-xs btnEditar" data-toggle="modal"
@@ -185,120 +190,6 @@ if (isset($_SESSION['miSesion'])){
 
 
 
-         <!-- eliminar-->
-         <div id="eliminar" class="modal fade" role="dialog">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <form action="./codigos/eliminarcuenta.php" method="post">
-                <div class="modal-header">
-
-                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h4 class="modal-title">Eliminar información</h4>
-                  <input type="hidden" id="idcuenta" name="idcuenta">
-
-                </div>
-                <div class="modal-body" style="text-align: center">
-                  <p>Estas seguro de eliminar esta cuenta
-                    <br>
-                    <span  style="font-size:20px;" 
-                    id="nombreeliminar"></span> </p>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-success" data-toggle="modal" data-target="#eliminar">Eliminar</button>
-                  </div>
-                </form>
-
-              </div>
-            </div>
-          </div>
-          <!-- eliminar-->
-
-
-
-
-
-
-          <!-- editar-->
-          <div id="editar" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <form action="./codigos/editarcuenta.php" method="post">
-                  <div class="modal-header">
-
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Editar información</h4>
-                    <input type="hidden" id="idcuentaeditar" name="idcuentaeditar">
-
-                  </div>  <div class="clearfix"></div>
-                  <div class="modal-body" style="text-align: center">
-
-                    <div class="item form-group" style="width:100%;margin-bottom: 20px;">
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12" >No de cuenta 
-                       <span class="required">*</span>
-                     </label>
-                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input  class="form-control col-md-7 col-xs-12" style="width:100%;" 
-                      data-inputmask="'mask' : '*-*-*-*-***-****-***'"
-                      name="cuenta" 
-                      id="cuentaeditar"
-                      placeholder="Número de la Cuenta" maxlength="20" minlength="20"
-                      type="text">
-                    </div>
-                  </div><br>
-                    <div class="clearfix"></div>
-
-                  <div class="item form-group" style="width:100%;margin-bottom: 20px;">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" >Nombre 
-                     <span class="required">*</span>
-                   </label>
-                   <div class="col-md-6 col-sm-6 col-xs-12"  >
-                    <input  class="form-control col-md-7 col-xs-12" style="width:100%;"
-                    name="nombre"
-                    placeholder="Nombre de la Cuenta"
-                    id="nombreeditar" type="text">
-                  </div>
-                </div><br>
-  <div class="clearfix"></div>
-
-                <div class="item form-group" style="width:100%;margin-bottom: 20px;">
-                  <label class="control-label col-md-3 col-sm-3 col-xs-12" >Cantidad  
-                    <span class="required">*</span>
-                  </label>
-                  <div class="col-md-6 col-sm-6 col-xs-12" >
-                    <input  class="form-control col-md-7 col-xs-12" style="width:100%;" 
-                    name="cantidad"
-                    id="cantidadeditar" 
-                    placeholder="Cantidad de la Cuenta" type="number">
-                  </div>
-                </div>
-
-
-              </div><br>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                <button type="submit" class="btn btn-success" data-toggle="modal" data-target="#editar">Guardar</button>
-              </div>
-            </form>
-
-          </div>
-        </div>
-      </div>
-      <!-- editar-->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     </tbody>
   </table>
 </div>
@@ -306,7 +197,127 @@ if (isset($_SESSION['miSesion'])){
 
 
 
+ <!-- /.Agregar a la Lista de productos que se van a comprar............................................................... -->
+            <div id="agregar" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <form class="form-horizontal" action="./codigos/ventadulce.php" method="post">
+                          <div class="modal-header">
 
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="box-title">Nuevo Producto</h4>
+                          
+                                        <label for="inputEmail3"      class="col-sm-2 control-label">Buscar</label>
+                                         <div class="col-sm-6">
+                                              <input type="text" class="form-control"  placeholder="Por Código o Por Nombre"
+                                              id="buscar"
+                                            name="buscar">
+                                        </div>
+
+
+                                         <div class="col-sm-11">
+                   <table class="table table-hover" style="margin-top:10px;color:#333;" >
+                       <tr >
+                           <th style="width:10%;">Código</th>
+                           <th style="width:70%;" >Nombre</th>
+                           <th style="width:15%;">Precio</th>
+                          <!-- <th  style="width:1%;">Cantidad</th>-->
+                           <th class="pull-right" style="width:1%;"></th>
+                        </tr>
+                         <?php  $consulta=$mysqli->query("select * from dulces order by nombre ")or die($mysqli->error);
+                      while ( $fila=mysqli_fetch_array($consulta)) { ?>
+                       
+                        <tr id="contenido" name="contenido">
+                               <td id="codigo" name="codigo"> <?php echo $fila['codigo'] ?></td>
+                                <td><?php echo $fila['nombre'] ?></td>
+                                <td>$ <?php echo $fila['precio'] ?>.00</td>
+                             
+                                <td><button type="submit" style="background-color: #00a65a !important" class="btn btn-success btn-xs pull-right btnagregar" style="margin-left:1%;margin-right:45%;"
+                                        data-codigoagregar="<?php echo $fila['codigo'] ?>"
+                                        data-nombreagregar="<?php echo $fila['nombre'] ?>"
+                                        data-precioagregar="<?php echo $fila['precio'] ?>"
+                                        data-idventaagregar="<?php echo $novent ?>"
+                                        >
+                                        <a  style="text-decoration: none;color:white;"> <i class="fa fa-plus"></i></a>
+                                          </button></td>
+
+                        </tr>
+                        <?php } ?>
+                    </table>
+                    </div>
+                          </div>
+                          <div class="modal-body" style="text-align: center">
+                                    <p>Estas seguro de eliminar este producto?
+                                      <br>
+                                      <!-- eliminar <span  style="font-size:20px;" 
+                                      id="nombreeliminar"></span> </p>-->
+                            </div>
+                            <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                    <button type="submit" class="btn btn-success" data-toggle="modal" data-target="#eliminar">Agregar</button>
+                            </div>
+                </form>
+
+              </div>
+            </div>
+          </div><!-- ...............................................<a href="...php" style="text-decoration: none;color:white;">.</a>....................... -->
+
+         <!-- eliminar-->
+         <div id="eliminardulce" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+            <div class="modal-content">
+              <form class="form-horizontal" action="./codigos/eliminardulce.php" method="post">
+                          <div class="modal-header">
+
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Eliminar información</h4>
+                            <input type="hidden"  id="codigoeliminar" name="codigoeliminar">
+
+                          </div>
+                          <div class="modal-body" style="text-align: center">
+                            <p>Estas seguro de eliminar este producto?
+                              <br>
+                              <!-- eliminar <span  style="font-size:20px;" 
+                              id="nombreeliminar"></span> </p>-->
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                              <button type="submit" class="btn btn-success" data-toggle="modal" data-target="#eliminar">Eliminar</button>
+                            </div>
+                </form>
+
+              </div>
+            </div>
+          </div>
+          <!-- eliminar-->
+  <!-- /. Cancelar toda la Lista de productos que se van a comprar............................................................... -->
+   <div id="cancelar" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+            <div class="modal-content">
+              <form class="form-horizontal" action="./codigos/cancelardulce.php" method="post">
+                          <div class="modal-header">
+
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Cancelar</h4>
+                                <input type="text"  id="idcancelar" name="idcancelar">
+
+                          </div>
+                          <div class="modal-body" style="text-align: center">
+                            <p>Desea Cancelarlo?
+                              <br>
+                              <!-- eliminar <span  style="font-size:20px;" 
+                              id="nombreeliminar"></span> </p>-->
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                              <button type="submit" class="btn btn-success" data-toggle="modal" data-target="#eliminar">Eliminar</button>
+                            </div>
+                </form>
+
+              </div>
+            </div>
+          </div>
+    <!-- /. Cancelar toda la Lista de productos que se van a comprar............................................................... -->
 
  <div class="col-md-12">
           <!-- general form elements -->
@@ -317,7 +328,7 @@ if (isset($_SESSION['miSesion'])){
                       <label> </label>
                      <p class="pull-right" style="font-size:18px;margin-right:3%;"> 
                        <!-- /.Cancelar la venta completa y dejar vacia la lista............................. -->
-                              <button type="button" class="btn btn-success  btncancelar"
+                             <button type="button" class="btn btn-success  btncancelar"
                                style=" background: rgb(255, 255, 255);
                                 color: rgb(0, 166, 90);"
                                      data-toggle="modal"
@@ -330,7 +341,7 @@ if (isset($_SESSION['miSesion'])){
                                       color: rgb(0, 166, 90);margin-right:100px;
                                       "
                                        data-toggle="modal"
-                                       data-target="#eliminar"
+                                       data-target="#pagar"
                                        data-codigopagar="<?php echo $fila['codigo'] ?>"
                                        data-nombrepagar="<?php echo $fila['nombre'] ?>"
                                         >Pagar</button>
@@ -399,26 +410,49 @@ if (isset($_SESSION['miSesion'])){
 <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
 
 
-<script type="text/javascript">
-
-  $(".btnEliminar").on('click',function(){
-   var id=$(this).data('id');
-   var nombre=$(this).data('nombre');
-   $("#idcuenta").val(id);
-   $("#nombreeliminar").text(nombre) ;   
- });
-  $(".btnEditar").on('click',function(){
-   var id=$(this).data('id');
-   var cuenta=$(this).data('cuenta');
-   var nombre=$(this).data('nombre');
-   var cantidad=$(this).data('cantidad');
-   $("#idcuentaeditar").val(id);
-   $("#cuentaeditar").val(cuenta) ;   
-   $("#nombreeditar").val(nombre) ;   
-   $("#cantidadeditar").val(cantidad) ;   
+<script>
+  $(".btnagregar").on('click',function(){
+      var codigo=$(this).data('codigoagregar');
+      var precioagregar=$(this).data('precioagregar');
+     // var noventagregar=$(this).data('idventaagregar');
+      var nombreagregar=$(this).data('nombreagregar');         
+         $("#codigo").val(codigo);
+         $("#nombreagregar").val(nombreagregar) ;   
+         $("#precioagregar").val(precioagregar) ;   
+       $("#prueba").val("asdf")
 
  });
+   $(".btneliminardulce").on('click',function(){
+   var codigoeliminar=$(this).data('codigoeliminar');
+   var nombreeliminar=$(this).data('nombreeliminar');
+   $("#codigoeliminar").val(codigoeliminar);
+   $("#nombreeliminar").text(nombreeliminar);   
+ });
+   $(".btncancelar").on('click',function(){
+     var idventacancelar=$(this).data('idventacancelar');
+     $("#idcancelar").text(idventacancelar) ;   
+ });
+</script>
+<script >
+          $(document).ready(function(){
+              $("#buscar").on('keyup',function(){ 
 
+                  $("#contenido").find("td").remove();
+
+                          $.ajax({
+                                  url: "./codigos/buscardulce.php",
+                                  method:"POST",
+                                  data:{ 
+                                    texto:$("#buscar").val()
+                                  }
+                                }).done(function(respuesta){
+                                  $(div).find("td").append(respuesta);
+                                  alert();
+                                    });
+                   });
+             
+          });
+  
 </script>
 </body>
 </html>

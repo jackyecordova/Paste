@@ -26,7 +26,7 @@ if (isset($_SESSION['miSesion'])){
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Control Presupuestal </title>
+  <title>Pasteleria Sandra </title>
   <!-- Bootstrap -->
   <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Font Awesome -->
@@ -105,11 +105,12 @@ if (isset($_SESSION['miSesion'])){
               
               <div class="x_content">
                 <p class="text-muted font-13 m-b-30">
- <a  class="btn btn-success  btnagregardulce pull-right" 
+              <a  class="btn btn-success  btnagregardulce pull-right" 
                                        data-toggle="modal"
                                        data-target="#agregar"
                                       style="background-color: #00a65a !important">
                                         Agregar Producto </a>
+                                      
                 </p>
               
                 <div class="row">
@@ -150,7 +151,7 @@ if (isset($_SESSION['miSesion'])){
           <tbody>
             <?php 
             include './conexion.php';
-            $consulta=$mysqli->query("select * from detventadulce")or die($mysqli->error);
+            $consulta=$mysqli->query("select * from detventadulce where idventa=".$novent)or die($mysqli->error);
             while ( $fila=mysqli_fetch_array($consulta)) {
                            # code...
 
@@ -197,9 +198,76 @@ if (isset($_SESSION['miSesion'])){
 
 
 
+
+
+      <div class="col-md-12">
+          <!-- general form elements -->
+        
+
+              <div class="pad margin no-print">
+                    <div class="callout callout-success" style="margin-bottom: 0!important;">
+                      <label> </label>
+                     <p class="pull-right" style="font-size:18px;margin-right:3%;"> 
+                       <!-- /.Cancelar la venta completa y dejar vacia la lista............................. 
+                        <form class="form-horizontal" action="./codigos/cancelardulce.php" method="post" accept-charset="utf-8">-->
+                             <button type="button" class="btn btn-success  btncancelar"
+                               style=" background: rgb(255, 255, 255);
+                                color: rgb(0, 166, 90);"
+                                     data-toggle="modal"
+                                       data-target="#cancelar"
+                                       data-idventacancelar="<?php echo $novent ?>">
+                               Cancelar</button>
+                  <!--  </form>-->
+
+
+
+                                <!-- /.Pagar la lista agregada y agregarse a la tabla de venta................... -->
+                                   <button type="button" class="btn btn-success  btnpagar" 
+                                      style=" background: rgb(255, 255, 255);
+                                      color: rgb(0, 166, 90);margin-right:100px;
+                                      "
+                                       data-toggle="modal"
+                                       data-target="#pagar"
+                                       data-idventapagar="<?php echo $fila['codigo'] ?>"
+                                       data-nombrepagar="<?php echo $fila['nombre'] ?>"
+                                        >Pagar</button>
+                                        Total: $ <?php   
+                                        $total=$mysqli->query("SELECT SUM(`precio`) as totaldulce from detventadulce where idventa=". $novent)or die($mysqli->error);
+                                             $totaldulce=$total->fetch_assoc();
+                                              $totaldul=$totaldulce['totaldulce'];   
+                                        echo number_format($totaldul,2);
+                                      ?>
+                              </p>
+                              <br><p>.</p>
+                    </div>
+            </div>
+               
+
+        </div>
+
+
+
+
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- /page content -->
+
+
+
+
+
+
+
  <!-- /.Agregar a la Lista de productos que se van a comprar............................................................... -->
             <div id="agregar" class="modal fade" role="dialog">
-          <div class="modal-dialog">
+                 <div class="modal-dialog">
             <div class="modal-content">
             <!--  <form class="form-horizontal" action="./codigos/ventadulce.php" method="post">-->
                           <div class="modal-header">
@@ -234,39 +302,40 @@ if (isset($_SESSION['miSesion'])){
                              <!--type="submit" style="background-color: #00a65a !important" class="btn btn-success btn-xs pull-right btnagregar" style="margin-left:1%;margin-right:45%;"
                                         -->
                                 <td>
-                                 <form class="form-horizontal" action="./codigos/ventadulce.php" method="post" accept-charset="utf-8">
-                                 <button>
-                                 <input type="hidden" name="codigoagregar" value="<?php echo $fila['codigo'] ?>">
-                                    <input type="hidden" name=" nombreagregar" value=" <?php echo $fila['nombre'] ?>">   
-                                    <input type="hidden" name="precioagregar" value="    <?php echo $fila['precio'] ?>">   
-                                     <input type="hidden" name="idventaagregar" value="  <?php echo $novent ?>">    
-                                        
-                                        <a  style="text-decoration: none;color:white;"> <i class="fa fa-plus"></i></a>
-                                          </button>
-                                          </form></td>
+                                         <form class="form-horizontal" action="./codigos/ventadulce.php" method="post" accept-charset="utf-8">
+                                             <button style="    background-color: #00a65a !important">
+                                                 <input type="hidden" name="codigoagregar" value="<?php echo $fila['codigo'] ?>">
+                                                  <input type="hidden" name=" nombreagregar" value=" <?php echo $fila['nombre'] ?>">   
+                                                  <input type="hidden" name="precioagregar" value="    <?php echo $fila['precio'] ?>">   
+                                                  <input type="hidden" name="idventaagregar" value="  <?php echo $novent ?>">    
+                                                
+                                                  <a  style="text-decoration: none;color:white;">
+                                                       <i class="fa fa-plus"></i>
+                                                  </a>
+                                              </button>
+                                          </form>
+                                  </td>
 
                         </tr>
                         <?php } ?>
                     </table>
                     </div>
                           </div>
-                          <div class="modal-body" style="text-align: center">
-                                    <p>Estas seguro de eliminar este producto?
-                                      <br>
-                                      <!-- eliminar <span  style="font-size:20px;" 
-                                      id="nombreeliminar"></span> </p>-->
-                            </div>
-                            <div class="modal-footer">
+                         
+                          <!--   <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                    <button type="submit" class="btn btn-success" data-toggle="modal" data-target="#eliminar">Agregar</button>
+                                    <button type="submit" class="btn btn-success" data-toggle="modal" data-target="#agregar">Agregar</button>
                             </div>
-              <!--  </form>-->
+               </form>-->
 
               </div>
             </div>
-          </div><!-- ...............................................<a href="...php" style="text-decoration: none;color:white;">.</a>....................... -->
+          </div><!-- .......................AGREGARRRRRRRRRRRRRRRRRRRRRRRRRRRRRR..................... -->
 
-         <!-- eliminar-->
+
+
+ 
+  <!-- eliminar-->
          <div id="eliminardulce" class="modal fade" role="dialog">
             <div class="modal-dialog">
             <div class="modal-content">
@@ -275,7 +344,7 @@ if (isset($_SESSION['miSesion'])){
 
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                             <h4 class="modal-title">Eliminar información</h4>
-                            <input type="hidden"  id="codigoeliminar" name="codigoeliminar">
+                            <input type="text"  id="codigoeliminar" name="codigoeliminar">
 
                           </div>
                           <div class="modal-body" style="text-align: center">
@@ -293,9 +362,9 @@ if (isset($_SESSION['miSesion'])){
               </div>
             </div>
           </div>
-          <!-- eliminar-->
+  <!-- eliminar-->
   <!-- /. Cancelar toda la Lista de productos que se van a comprar............................................................... -->
-   <div id="cancelar" class="modal fade" role="dialog">
+           <div id="cancelar" class="modal fade" role="dialog">
             <div class="modal-dialog">
             <div class="modal-content">
               <form class="form-horizontal" action="./codigos/cancelardulce.php" method="post">
@@ -303,7 +372,8 @@ if (isset($_SESSION['miSesion'])){
 
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 <h4 class="modal-title">Cancelar</h4>
-                                <input type="text"  id="idcancelar" name="idcancelar">
+                                
+                                 <input type="hidden"  value="<?php echo $novent ?>" id="idcancelar" name="idcancelar">
 
                           </div>
                           <div class="modal-body" style="text-align: center">
@@ -314,65 +384,91 @@ if (isset($_SESSION['miSesion'])){
                             </div>
                             <div class="modal-footer">
                               <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                              <button type="submit" class="btn btn-success" data-toggle="modal" data-target="#eliminar">Eliminar</button>
+                              <button type="submit" class="btn btn-success" data-toggle="modal" data-target="#cancelar">Eliminar</button>
                             </div>
                 </form>
 
               </div>
             </div>
           </div>
-    <!-- /. Cancelar toda la Lista de productos que se van a comprar............................................................... -->
+<!-- /. Cancelar toda la Lista de productos que se van a comprar............................................................... -->
 
- <div class="col-md-12">
-          <!-- general form elements -->
-        
+ <!-- Pagar-->   <!-- Pagar-->   <!-- Pagar-->   <!-- Pagar-->   <!-- Pagar-->   <!-- Pagar-->   <!-- Pagar-->   <!-- Pagar-->   <!-- Pagar-->   <!-- Pagar-->
+         <div id="pagar" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+            <div class="modal-content">
+              <form class="form-horizontal" action="./codigos/pagardulce.php" method="post">
+                          <div class="modal-header">
 
-              <div class="pad margin no-print">
-                    <div class="callout callout-success" style="margin-bottom: 0!important;">
-                      <label> </label>
-                     <p class="pull-right" style="font-size:18px;margin-right:3%;"> 
-                       <!-- /.Cancelar la venta completa y dejar vacia la lista............................. -->
-                             <button type="button" class="btn btn-success  btncancelar"
-                               style=" background: rgb(255, 255, 255);
-                                color: rgb(0, 166, 90);"
-                                     data-toggle="modal"
-                                       data-target="#cancelar"
-                                       data-idventacancelar="<?php echo $novent ?>">
-                               Cancelar</button>
-                                <!-- /.Pagar la lista agregada y agregarse a la tabla de venta................... -->
-                                   <button type="button" class="btn btn-success  btnpagar" 
-                                      style=" background: rgb(255, 255, 255);
-                                      color: rgb(0, 166, 90);margin-right:100px;
-                                      "
-                                       data-toggle="modal"
-                                       data-target="#pagar"
-                                       data-codigopagar="<?php echo $fila['codigo'] ?>"
-                                       data-nombrepagar="<?php echo $fila['nombre'] ?>"
-                                        >Pagar</button>
-                                        Total: <?php      
-                                        echo "1234";
-                                      ?>
-                              </p>
-                              <br><p>.</p>
-                    </div>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Realizar la Compra</h4>
+                             <input type="hidden"  value="<?php echo $novent ?>" id="idpagar" name="idpagar">
+
+                          </div>
+                          <div class="modal-body" style="text-align: center">
+                          <div class="col-xs-12" style="margin-top:10px;">
+
+                            <div class="input-group"> Total:
+                                <span class="input-group-addon">$</span>
+                                <?php $total=$mysqli->query("SELECT SUM(`precio`) as totaldulce from detventadulce where idventa=".$novent)or die($mysqli->error);
+                                    $totaldulce=$total->fetch_assoc();
+                                    $totaldul=$totaldulce['totaldulce']; ?>
+                                <input type="number"  value="<?php echo number_format($totaldul,2);?>" readonly="readonly"  data-number-to-fixed="2"  class="form-control currency"  />
+                               
+                            </div></div>
+
+                             <div class="clearfix"></div>
+                                <div class="col-xs-12" style="margin-top:10px;">
+
+                             <div class="input-group"> Pago:
+                                <span class="input-group-addon">$</span>
+                                <input type="number"  min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="pago" />
+                            </div></div>
+
+                             <div class="clearfix"></div>
+                               <div class="col-xs-12" style="margin-top:10px;">
+                                  <?php $cambio= $totaldul ?>
+                            <div class="input-group">    Cambio:
+                                <span class="input-group-addon">$</span>
+                                <input type="number" value="php" readonly="readonly" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="c2" />
+                            </div>
+                            </div>
+                              <br>
+                            
+                              <!-- eliminar <span  style="font-size:20px;" 
+                              id="nombreeliminar"></span> </p>-->
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                              <button type="submit" class="btn btn-success" data-toggle="modal" data-target="#pagar">Pagar</button>
+                            </div>
+                </form>
+
+              </div>
             </div>
-               
-
-        </div>
-
+          </div>
+   <!-- Pagar-->   <!-- Pagar-->   <!-- Pagar-->   <!-- Pagar-->   <!-- Pagar-->   <!-- Pagar-->   <!-- Pagar-->   <!-- Pagar-->
 
 
 
 
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<!-- /page content -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!-- footer content -->
 <footer>
@@ -416,13 +512,13 @@ if (isset($_SESSION['miSesion'])){
 
 <script>
   $(".btnagregar").on('click',function(){
-      var codigo=$(this).data('codigoagregar');
-      var precioagregar=$(this).data('precioagregar');
+     // var codigo=$(this).data('codigoagregar');
+     // var precioagregar=$(this).data('precioagregar');
      // var noventagregar=$(this).data('idventaagregar');
-      var nombreagregar=$(this).data('nombreagregar');         
-         $("#codigo").val(codigo);
-         $("#nombreagregar").val(nombreagregar) ;   
-         $("#precioagregar").val(precioagregar) ;   
+     // var nombreagregar=$(this).data('nombreagregar');         
+     //    $("#codigo").val(codigo);
+     //    $("#nombreagregar").val(nombreagregar) ;   
+     //    $("#precioagregar").val(precioagregar) ;   
       
 
  });
@@ -434,7 +530,11 @@ if (isset($_SESSION['miSesion'])){
  });
    $(".btncancelar").on('click',function(){
      var idventacancelar=$(this).data('idventacancelar');
-     $("#idcancelar").text(idventacancelar) ;   
+     $("#idcancelar").text(idventacancelar);   
+ });
+    $(".btnpagar").on('click',function(){
+     var idventapagar=$(this).data('idventapagar');
+     $("#idpagar").text(idventapagar);   
  });
 </script>
 <script >

@@ -42,7 +42,7 @@
                                           <ul class="nav child_menu" style="display: none;">
                                            
                                            
-                                            <li><a href="vercuenta.php">Agregar</a>
+                                            <li><a href="agregardulce.php">Agregar</a>
                                             </li>
                                              <li><a href="nuevacuenta.php">Consultar</a>
                                             </li>
